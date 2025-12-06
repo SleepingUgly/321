@@ -837,11 +837,12 @@ h2 + div a:hover,
         <p class="gemini-message">EGM. 守護心語：</p>
         <p class="gemini-message-text"> 1. 過馬路一定要看紅綠燈，並且走斑馬線，遇到 大卡車 大貨車 時，要離它們遠一點，要不然會被捲進去喔 !<br><br>
             2.每一區都可按 Ctrl+Z 放大，不建議用手機玩，但可玩，用手指把想玩的區域撐大。<br><br></p>
-    </div>
+            
+</div>
 
 <div class="module message-module1">
        
-        <p class="gemini-message-text1">開發者 XAI / Gooogle Gemini / Ms.Huang<br><br> 
+        <p class="gemini-message-text1">開發者 <br>XAI Grok / Gooogle Gemini / Huang M.<br><br> 
             音樂使用 Ocean_coast_02_092025br0659AM by YevgVerh  https://freesound.org/s/827528/ 
             - License: Creative Commons</p> 
  
@@ -1536,8 +1537,9 @@ h2 + div a:hover,
     function nextStory(){currentStoryIndex = (currentStoryIndex + 1) % stories.length; showStory();}
 
     // 美景輪播
-    const sceneryImages = ['elephant.jpg','tiger.jpg','animals.jpg','camel.jpg','capepeepara.jpg','fox.jpg','jellyfish.jpg','manyjellyfish.jpg','raccoon.jpg',
-    'whale.jpg','wolf.jpg','dog.png','kitchen1.jpg','kitchen11','livingroom.jpg'];
+    const sceneryImages = ['elephant.jpg','tiger.jpg','animals.jpg','camel.jpg',
+    'capepeepara.jpg','fox.jpg','jellyfish.jpg','manyjellyfish.jpg','raccoon.jpg',
+    'whale.jpg','wolf.jpg','dog.png','kitchen1.jpg','kitchen11.jpg','livingroom.jpg','readstory.jpg','drawing1.jpg','playgroundkids.jpg','ridebike.jpg','unnamed.jpg','breakfast.jpg'];
     let currentImageIndex = 0;
     function changeScenery(){
         const img = document.getElementById('sceneryImage');
@@ -2409,29 +2411,34 @@ window.addEventListener('load', () => {
     canvasEl.addEventListener('touchcancel', stopDraw); 
 });
 </script>
+
+
+
 <script>
-// ============ SleepingUgly 終極防拷貝 - 推薦穩定版 (2025/12/06) ============
+// ============ SleepingUgly 終極防拷貝 (純淨版 - 已修復所有全形問題) ============
 
 (() => {
-  // === 0. 設置您的 GitHub Pages 網域！ (必修) ===
-  // 請將 YOUR_GITHUB_USERNAME_HERE 換成您實際的用戶名/組織名
+  // === 0. 設置您的 GitHub Pages 網域！(必填) ===
   const GITHUB_HOST = 'sleepingugly.github.io';
-  
+
   // 1. 每0.3秒狂丟 debugger → F12 永久卡死
   setInterval(() => { Function('debugger')(); }, 300);
 
   // 2. 完全封死右鍵與所有開發者快捷鍵
   document.oncontextmenu = () => false;
   document.onkeydown = document.onkeyup = document.onkeypress = e => {
-    // 封鎖 F12, Ctrl+Shift+I/J/C/K, Ctrl+U (原始碼), Ctrl+S (另存), Ctrl+A (全選), Ctrl+C (複製)
-    if (e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && ['U','S','A','C'].includes(e.key.toUpperCase()))) {
-      e.preventDefault(); e.stopPropagation(); return false;
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K'].includes(e.key.toUpperCase())) ||
+      (e.ctrlKey && ['U', 'S', 'A', 'C'].includes(e.key.toUpperCase()))
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
     }
   };
 
-  // 3. 域名鎖 (只允許你自己的 GitHub Pages + 本地測試)
+  // 3. 域名鎖 (只允許自己的 GitHub Pages + 本地測試)
   const allowed = [GITHUB_HOST, 'localhost', '127.0.0.1', ''];
   if (!allowed.includes(location.hostname)) {
     document.body.innerHTML = `<div style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:#fff9fb;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:30px;font-family:'Comic Sans MS',sans-serif;">
@@ -2441,23 +2448,32 @@ window.addEventListener('load', () => {
     throw '';
   }
 
-  // 4. 徹底封死選取與複製 (連長按選單都死)
+  // 4. 徹底封死選取與複製 (迷宮區拖曳已特別放行)
   const blockSelect = e => {
-    // 允許 input/textarea/button/[contenteditable] 進行操作
+    // 關鍵：如果點擊的是迷宮容器內的元素，就允許選取/拖曳
+    if (e.target.closest('#maze-container')) {
+      return true;
+    }
+
+    // 允許 input、textarea、button 等可編輯元素正常操作
     if (!e.target.closest('input, textarea, button, [contenteditable]')) {
-      e.preventDefault(); e.stopPropagation(); return false;
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
     }
   };
-  
-  const eventsToBlock = ['selectstart','mousedown','mouseup','touchstart','touchmove','copy','cut','contextmenu'];
-  eventsToBlock.forEach(ev => document.addEventListener(ev, blockSelect, {capture:true, passive:false}));
 
-  // 額外增加防雙擊選字
-  document.addEventListener('mousedown', e => { if (e.detail > 1) e.preventDefault(); }, {capture:true, passive:false}); 
-  
- 
-  
-  // 6. 絕殺：任何方式選取文字都立刻清空
+  const eventsToBlock = ['selectstart', 'mousedown', 'mouseup', 'touchstart', 'touchmove', 'copy', 'cut', 'contextmenu'];
+  eventsToBlock.forEach(ev => 
+    document.addEventListener(ev, blockSelect, { capture: true, passive: false })
+  );
+
+  // 防雙擊選字
+  document.addEventListener('mousedown', e => {
+    if (e.detail > 1) e.preventDefault();
+  }, { capture: true, passive: false });
+
+  // 6. 絕殺：任何選取到的文字立刻清空
   setInterval(() => {
     if (window.getSelection && window.getSelection().toString()) {
       window.getSelection().empty();
@@ -2465,9 +2481,16 @@ window.addEventListener('load', () => {
   }, 50);
 
   // 7. 粉紅彩蛋
-  console.log('%c❤️ SleepingUgly原創保護模式已啟動\n複製貼上不可能的啦','color:#ff69b4;font-size:18px;font-weight:bold');
+  console.log(
+    '%c❤️ SleepingUgly原創保護模式已啟動\n複製貼上不可能的啦',
+    'color:#ff69b4;font-size:18px;font-weight:bold'
+  );
 })();
 </script>
+
+
+
+
 </body>
 </html>
 
