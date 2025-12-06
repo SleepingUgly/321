@@ -791,7 +791,6 @@ h2 + div a:hover,
     
     <div id="quiz-stage-selectors" class="stage-selectors">
         </div>
-    
     <div id="language-game" class="question-container">
     </div>
     
@@ -835,13 +834,17 @@ h2 + div a:hover,
        
     </div>
     <div class="module message-module">
-        <p class="gemini-message">Aroth 守護心語：</p>
-        <p class="gemini-message-text"> 過馬路一定要看紅綠燈，並且走斑馬線，遇到 大卡車 大貨車 時，要離它們遠一點，要不然會被捲進去喔 !</p> 
+        <p class="gemini-message">EGM. 守護心語：</p>
+        <p class="gemini-message-text"> 1. 過馬路一定要看紅綠燈，並且走斑馬線，遇到 大卡車 大貨車 時，要離它們遠一點，要不然會被捲進去喔 !<br><br>
+            2.每一區都可按 Ctrl+Z 放大，不建議用手機玩，但可玩，用手指把想玩的區域撐大。<br><br></p>
     </div>
 
-<div class="module message-module">
-        <p class="gemini-message">準備區：</p>
-        <p class="gemini-message-text"> </p> 
+<div class="module message-module1">
+       
+        <p class="gemini-message-text1">開發者 XAI / Gooogle Gemini / Ms.Huang<br><br> 
+            音樂使用 Ocean_coast_02_092025br0659AM by YevgVerh  https://freesound.org/s/827528/ 
+            - License: Creative Commons</p> 
+ 
     </div>
  </div>
     
@@ -2452,11 +2455,7 @@ window.addEventListener('load', () => {
   // 額外增加防雙擊選字
   document.addEventListener('mousedown', e => { if (e.detail > 1) e.preventDefault(); }, {capture:true, passive:false}); 
   
-  // 5. 離開視窗立刻清空畫面 (防另存網頁/螢幕錄影)
-  // 註：切換分頁或程式會清空，但不會影響 window.onblur，避免過度干擾
-  document.addEventListener('visibilitychange', () => { 
-    if (document.hidden) document.body.innerHTML = ''; 
-  });
+ 
   
   // 6. 絕殺：任何方式選取文字都立刻清空
   setInterval(() => {
